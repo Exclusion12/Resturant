@@ -30,7 +30,7 @@ usersRouter
   .post(
     [corsWithOptions, ValidateSchema(validationSchemas.user.create)],
     userController.signup
-  ); //***herere */
+  );
 
 usersRouter
   .route("/login")

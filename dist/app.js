@@ -46,12 +46,9 @@ app.use("/leaders", leadersrouter);
 app.use("/promotions", promorouter);
 app.use("/imageUpload", uploadrouter);
 app.use("/favourites", favrouter);
-app.get("/chat", (req, res) => {
-    res.sendFile(__dirname + "/public/chat.html");
-});
 const dburl = config.mongodbUri;
 const connect = mongoose.connect(dburl);
-connect.then((db) => {
+connect.then(() => {
     logging.info("connected correctly to database : " + dburl);
 });
 // catch 404 and forward to error handler

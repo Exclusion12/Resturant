@@ -20,7 +20,6 @@ WORKDIR /usr/src/app
 COPY package.json yarn.lock ./
 
 RUN yarn install --production --frozen-lockfile
-RUN mkdir /user/data
 
 COPY --from=builder /usr/src/app/dist ./dist
 RUN yarn global add pm2

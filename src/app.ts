@@ -49,19 +49,15 @@ app.all("*", (req, res, next) => {
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-
 app.use("/dishes", dishrouter);
 app.use("/leaders", leadersrouter);
 app.use("/promotions", promorouter);
 app.use("/imageUpload", uploadrouter);
 app.use("/favourites", favrouter);
-app.get("/chat", (req, res) => {
-  res.sendFile(__dirname + "/public/chat.html");
-});
 
 const dburl = config.mongodbUri;
 const connect = mongoose.connect(dburl);
-connect.then((db) => {
+connect.then(() => {
   logging.info("connected correctly to database : " + dburl);
 });
 

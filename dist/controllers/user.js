@@ -10,7 +10,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { StatusCodes } from "http-status-codes";
 import users from "../models/users.js";
 import * as authenticate from "../middleware/authenticate.js";
-import passport from "passport";
 class usersController {
     getall(req, res, next) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -33,31 +32,26 @@ class usersController {
             });
         }
     }
-    signup(req, res) {
-        users.register(new users({ username: req.body.username }), req.body.password, (err, user) => {
-            if (err) {
-                res.statusCode = 500;
-                res.setHeader("Content-Type", "application/json");
-                res.json({ err: err });
-            }
-            else {
+    signup(req, res, next) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let user = yield users.register(new users({ username: req.body.username }), req.body.password);
                 if (req.body.firstname) {
                     user.firstname = req.body.firstname;
                 }
                 if (req.body.lastname) {
                     user.lastname = req.body.lastname;
                 }
-                user.save((err) => {
-                    if (err) {
-                        res.statusCode = 500;
-                        res.setHeader("Content-Type", "application/json");
-                        res.json({ err: err });
-                        return;
-                    }
-                    else {
-                        passport.authenticate("local")(this.login);
-                    }
+                yield user.save();
+                let token = authenticate.getToken({ _id: user._id });
+                res.status(StatusCodes.OK).json({
+                    success: true,
+                    token: token,
+                    status: "You are successfully signed up!",
                 });
+            }
+            catch (error) {
+                next(error);
             }
         });
     }

@@ -19,7 +19,7 @@ usersRouter
     .options([corsWithOptions], (req, res) => {
     res.sendStatus(StatusCodes.OK);
 })
-    .post([corsWithOptions, ValidateSchema(validationSchemas.user.create)], userController.signup); //***herere */
+    .post([corsWithOptions, ValidateSchema(validationSchemas.user.create)], userController.signup);
 usersRouter
     .route("/login")
     .options([corsWithOptions], (req, res) => {

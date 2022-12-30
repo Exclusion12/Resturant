@@ -8,7 +8,7 @@
     "start": "node -r dotenv/config ./dist/bin/server",
     "life": "nodemon -r dotenv/config ./dist/bin/server",
     "build": "tsc",
-    "production": "pm2-runtime start ./dist/bin/server"
+    "production": "pm2-runtime start ./dist/bin/server.js"
   },
   "dependencies": {
     "@types/body-parser": "^1.19.2",

@@ -9,7 +9,6 @@ import passport from "passport";
 passport.use(new LocalStrategy(users.authenticate()));
 passport.serializeUser(users.serializeUser());
 passport.deserializeUser(users.deserializeUser());
-users.findOne();
 export function getToken(user) {
     return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
 }

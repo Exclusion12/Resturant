@@ -10,6 +10,7 @@ export const ValidateSchema = (schema: ObjectSchema | ArraySchema) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.validateAsync(req.body);
+      next();
     } catch (error) {
       logging.error(error);
       return res.status(422).json({ error });

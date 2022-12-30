@@ -18,7 +18,12 @@ class favouriteController {
                     const favs = yield Favourites.findOne({ user: req.user._id })
                         .populate("dishes")
                         .populate("user");
-                    res.status(StatusCodes.OK).json({ favourites: favs });
+                    if (favs) {
+                        res.status(StatusCodes.OK).json({ favourites: favs });
+                    }
+                    else {
+                        res.status(StatusCodes.NO_CONTENT).end();
+                    }
                 }
                 catch (err) {
                     next(err);

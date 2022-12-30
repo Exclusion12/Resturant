@@ -17,7 +17,6 @@ passport.use(new LocalStrategy(users.authenticate()));
 passport.serializeUser(users.serializeUser());
 passport.deserializeUser(users.deserializeUser());
 
-users.findOne();
 export function getToken(user: Object) {
   return jwt.sign(user, config.secretKey, { expiresIn: 3600 });
 }
